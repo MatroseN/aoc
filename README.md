@@ -4,7 +4,7 @@
 You start by writing up a list of everyone invited and the amount their happiness would increase or decrease if they were to find themselves sitting next to each other person. You have a circular table that will be just big enough to fit everyone comfortably, and so each person will have exactly two neighbors.
 
 ## Idéas
-### Brute Force
+### Brute Force*
 Check all possible combinations and pick the one with the highest total happiness score.
 
 **Pros:** Ensures that the optimal happiness levels are reached. Pretty simple and straightforward to implement.
@@ -18,7 +18,7 @@ Check all possible combinations and pick the one with the highest total happines
 
 **3.** Can be difficult to repurpose for similar problems since it scales so badly.
 
-### Estimation method
+### Estimation method*
 The estimation method does not ensure that the most optimal combination is found. But it will run faster meaning that if it gives a sufficient enough result it could be worth using where the brute force method is inapplicable.
 
 **Pros:** It can run much faster on big inputs than what a brute force method could. Less computing power is needed.
