@@ -1,34 +1,25 @@
-# Day 13: Knights of the Dinner Table
+# Explanation of implementation
 
-## Problem Description
-You start by writing up a list of everyone invited and the amount their happiness would increase or decrease if they were to find themselves sitting next to each other person. You have a circular table that will be just big enough to fit everyone comfortably, and so each person will have exactly two neighbors.
+## Input
+Since the input consists of many lines of written rules for every attendee against all other attendees it is best to take input from a text file instead of reading console inputs. The input is taken line by line and is then handled by the RuleDictator class.
 
-## Idéas
-### Brute Force*
-Check all possible combinations and pick the one with the highest total happiness score.
+## RuleDictator
+The rule dictator takes the input and deducts rules from the given input. A rule can look like this for example:
 
-**Pros:** Ensures that the optimal happiness levels are reached. Pretty simple and straightforward to implement.
+`Alice would gain 54 happiness units by sitting next to Bob.`
 
-**Cons:** The algorithm will grow slower incredibly fast and if the list of attendees grows large it could quickly become too slow. The algorithm would be difficult to repurpose for other similar tasks unless the attendee list is very small.
+The rule dictator splits the input string into a string array of words. Since all the input lines have the same structure the only thing interesting from the array is what attendee the rule is about if the happiness should be negative or positive and also who the rule is referring to. This information is grabbed simply from the newly created array of words by choosing the first word, the last word minus the "." and also checking the 3dr word to decide if the happiness should be negative or positive. Then finally the 4th word is grabbed from the array and used as the amount of happiness to ether gain or lose.
 
-#### Takeaways
-**1.** As long as the attendee list is kept very short the algorithm will work well and will produce a more accurate result than none brute force methods would.
+If the attendee the rule is about is not present in the attendee dictionary they are added to it. And also the rule deducted is added to the attendee by inserting it into a dictionary where they store all the rules for all other attendees.
 
-**2.** Can not be used for large amounts of input since it would grow slow really fast and the computing power would have to be extremely greate in order to run the algorithm in a reasonable amount of time (aka it doesn't scale well with the problem it is trying to solve).
+## AttendeePermutationHappiness
+Next comes the class that takes the attendees and calculates all the permutations. First an array with all the attendees names has to be created so that it is easier to perform the permutation calculation. Then the permutations are calculated.
 
-**3.** Can be difficult to repurpose for similar problems since it scales so badly.
+### Permutations
+Since the problem is to find the best seating arrangement all the possible seating arrangements has to be tried. A way of doing this is to calculate all the permutations using heaps permutation algorithm. When a permutation is found the total happiness score is calculated by the HappinessTracker and the permutation with the best happiness score is stored and eventually returned.
 
-### Estimation method*
-The estimation method does not ensure that the most optimal combination is found. But it will run faster meaning that if it gives a sufficient enough result it could be worth using where the brute force method is inapplicable.
+## HappinessTracker
+The happiness tracker goes through all the attendees of the current permutation and checks their happiness score based on the rules that each attendee is keeping. Then since the table is round the first and last elements of the permutation has to be checked against each other and their happiness scores has to be calculated. Then the happiness score is returned.
 
-**Pros:** It can run much faster on big inputs than what a brute force method could. Less computing power is needed.
-
-**Cons:** The algorithm will be less accurate than a brute force method meaning that if there is a need for 100% accuracy this is not the solution.
-
-#### Takeaways
-**1.** Could be a useful option to use if inputs grow so large that a more accurate brute force method cannot reach a result in a reasonable amount of time.
-
-**2.** Can not be used for large amounts of input since it would grow slow really fast and the computing power would have to be extremely greate in order to run the algorithm in a reasonable amount of time (aka it doesn't scale well with the problem it is trying to solve).
-
-## Method of choice
-Since the program must output a 100% accurate result an estimation method cannot be implemented to solve the problem. **Therefore the method of choice is Brute Force**. However the estimation method could be interesting in cases where the brute force method is not applicable, then a decent result from the estimation method would be better than no result from the bruteforce method. This means that there is room for using the brute force method for smaller inputs and the estimation method for larger input sizes if a problem were to arise.
+## Output
+In the end the permutation with the best total happiness is printed and also the happiness score. 
